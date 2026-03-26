@@ -1,0 +1,1632 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Profile</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #0a0a0a;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          radial-gradient(
+            circle at 20% 80%,
+            rgba(120, 119, 198, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 119, 198, 0.3) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 40%,
+            rgba(120, 219, 255, 0.2) 0%,
+            transparent 50%
+          );
+        z-index: -2;
+      }
+      .ai-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.1;
+      }
+      .neural-network {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+      .node {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #00ffff;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+      .connection {
+        position: absolute;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #00ffff, transparent);
+        animation: flow 3s infinite;
+      }
+      .floating-particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+      }
+      .particle {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: #00ffff;
+        border-radius: 50%;
+        animation: float 6s infinite linear;
+      }
+      .container {
+        width: 80%;
+        margin: 30px auto;
+        background: rgba(255, 255, 255, 0.95);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        padding: 20px 30px;
+        border-radius: 15px;
+        box-shadow:
+          0 8px 25px rgba(0, 255, 255, 0.1),
+          0 0 50px rgba(0, 255, 255, 0.05);
+        animation: slideUp 0.8s ease-out;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(0, 255, 255, 0.2);
+      }
+      .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
+        animation: slideIn 2s ease-out 0.5s forwards;
+      }
+      .profile-header {
+        text-align: center;
+        margin-bottom: 30px;
+        animation: fadeIn 1s ease-out 0.3s both;
+      }
+      .profile-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        border: 4px solid #667eea;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        background: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #999;
+        font-size: 14px;
+      }
+      .profile-image:hover {
+        transform: scale(1.05) rotate(5deg);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      }
+      h1 {
+        color: #2c3e50;
+        margin: 0;
+        font-size: 2.5em;
+        background: linear-gradient(45deg, #00ffff, #ff00ff, #00ff00);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+      h2 {
+        color: #2c3e50;
+        position: relative;
+        padding-left: 20px;
+        animation: slideInLeft 0.6s ease-out;
+      }
+      h2::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 20px;
+        background: linear-gradient(45deg, #00ffff, #ff00ff);
+        border-radius: 2px;
+        animation: pulse 2s infinite;
+      }
+      p,
+      ul,
+      table {
+        animation: fadeInUp 0.6s ease-out;
+      }
+      p {
+        line-height: 1.6;
+        transition: transform 0.2s ease;
+      }
+      p:hover {
+        transform: translateX(5px);
+      }
+      ul {
+        list-style-type: none;
+        margin-left: 0;
+        padding-left: 0;
+      }
+      ul li {
+        position: relative;
+        padding: 8px 0 8px 25px;
+        transition: all 0.3s ease;
+      }
+      ul li::before {
+        content: "▶";
+        position: absolute;
+        left: 0;
+        color: #667eea;
+        transition: transform 0.3s ease;
+      }
+      ul li:hover {
+        transform: translateX(10px);
+        color: #667eea;
+      }
+      ul li:hover::before {
+        transform: scale(1.2);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      th,
+      td {
+        padding: 12px;
+        text-align: center;
+        border: none;
+        transition: background-color 0.3s ease;
+      }
+      th {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        font-weight: bold;
+      }
+      td {
+        background: #f8f9fa;
+      }
+      tr:hover td {
+        background: #e3f2fd;
+        transform: scale(1.02);
+      }
+      .social-links {
+        text-align: center;
+        margin-top: 30px;
+      }
+      .social-links a {
+        display: inline-block;
+        margin: 0 10px;
+        padding: 12px 24px;
+        text-decoration: none;
+        color: white;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        border-radius: 25px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .social-links a::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #764ba2, #667eea);
+        transition: left 0.3s ease;
+        z-index: -1;
+      }
+      .social-links a:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      }
+      .social-links a:hover::before {
+        left: 0;
+      }
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+      }
+      .gallery-item {
+        width: 100%;
+        height: 180px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #555;
+        font-size: 14px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        border: 2px solid #e0e0e0;
+        text-align: center;
+        padding: 20px;
+      }
+      .gallery-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        border-color: #667eea;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+      .profile-header p {
+        margin: 10px 0;
+        color: #666;
+        font-size: 16px;
+      }
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes slideIn {
+        from {
+          left: -100%;
+        }
+        to {
+          left: 0;
+        }
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.7;
+          transform: scale(1.1);
+        }
+      }
+      @keyframes flow {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) translateX(0px);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) translateX(100px);
+          opacity: 0;
+        }
+      }
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+        to {
+          text-shadow: 0 0 30px rgba(255, 0, 255, 0.8);
+        }
+      }
+      /* Navigation Styles */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(10, 10, 10, 0.95);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        padding: 15px 0;
+        z-index: 1000;
+        box-shadow: 0 2px 20px rgba(0, 255, 255, 0.2);
+        border-bottom: 2px solid rgba(0, 255, 255, 0.3);
+      }
+      nav ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      nav li {
+        margin: 0 20px;
+        padding: 0;
+      }
+      nav li::before {
+        display: none;
+      }
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        position: relative;
+        display: inline-block;
+      }
+      nav a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(45deg, #00ffff, #ff00ff);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
+      nav a:hover {
+        color: #00ffff;
+        transform: translateY(-2px);
+      }
+      nav a:hover::after {
+        width: 80%;
+      }
+      nav a.active {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+      }
+      body {
+        padding-top: 70px;
+      }
+      section {
+        scroll-margin-top: 80px;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      /* Contact Form Styles */
+      .contact-form {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.05);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        border: 2px solid rgba(0, 255, 255, 0.2);
+        box-shadow: 0 8px 25px rgba(0, 255, 255, 0.1);
+      }
+      .contact-form h3 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 25px;
+        font-size: 1.8em;
+        background: linear-gradient(45deg, #00ffff, #ff00ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #2c3e50;
+        font-weight: bold;
+        font-size: 14px;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid rgba(102, 126, 234, 0.3);
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: Arial, sans-serif;
+        background: rgba(255, 255, 255, 0.9);
+        transition: all 0.3s ease;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+        background: #fff;
+      }
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+      .submit-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .submit-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #764ba2, #667eea);
+        transition: left 0.3s ease;
+        z-index: -1;
+      }
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+      }
+      .submit-btn:hover::before {
+        left: 0;
+      }
+      .submit-btn:active {
+        transform: translateY(0);
+      }
+      /* Gallery Styles */
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 30px;
+        padding: 10px;
+      }
+      .gallery-item {
+        position: relative;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        box-shadow:
+          0 8px 20px rgba(0, 0, 0, 0.1),
+          0 0 30px rgba(0, 255, 255, 0.2);
+        transition: all 0.4s ease;
+        border: 3px solid rgba(0, 255, 255, 0.3);
+        overflow: hidden;
+        padding: 15px;
+      }
+      .gallery-item:hover {
+        transform: translateY(-15px);
+        box-shadow:
+          0 15px 40px rgba(0, 0, 0, 0.2),
+          0 0 50px rgba(0, 255, 255, 0.5);
+        border-color: rgba(0, 255, 255, 0.6);
+      }
+      .gallery-item img {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: contain;
+        display: block;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+      }
+      .gallery-item:hover img {
+        transform: scale(1.03);
+      }
+      .gallery-item::before {
+        content: "Click to view";
+        position: absolute;
+        bottom: 25px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 10;
+        pointer-events: none;
+      }
+      .gallery-item:hover::before {
+        opacity: 1;
+      }
+      .achievements-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 24px;
+        margin-top: 25px;
+      }
+      .achievement-card {
+        background: rgba(255, 255, 255, 0.95);
+        border: 2px solid rgba(102, 126, 234, 0.25);
+        border-radius: 16px;
+        padding: 14px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .achievement-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 30px rgba(102, 126, 234, 0.25);
+      }
+      .achievement-badge {
+        width: 100%;
+        height: 90px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: #fff;
+        font-size: 28px;
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+      .achievement-title {
+        margin: 12px 0 6px;
+        font-size: 16px;
+        color: #2c3e50;
+        font-weight: bold;
+      }
+      .achievement-meta {
+        margin: 0;
+        font-size: 13px;
+        color: #5f6f81;
+      }
+      /* Lightbox Modal Styles */
+      .lightbox {
+        display: none;
+        position: fixed;
+        z-index: 10000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.95);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        animation: fadeIn 0.3s ease;
+      }
+      .node-1 {
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .node-2 {
+        top: 30%;
+        left: 80%;
+        animation-delay: 0.5s;
+      }
+      .node-3 {
+        top: 60%;
+        left: 20%;
+        animation-delay: 1s;
+      }
+      .node-4 {
+        top: 80%;
+        left: 70%;
+        animation-delay: 1.5s;
+      }
+      .connection-1 {
+        top: 25%;
+        left: 10%;
+        width: 70%;
+        transform: rotate(15deg);
+      }
+      .connection-2 {
+        top: 65%;
+        left: 20%;
+        width: 50%;
+        transform: rotate(-10deg);
+      }
+      .particle-1 {
+        left: 10%;
+        animation-delay: 0s;
+      }
+      .particle-2 {
+        left: 20%;
+        animation-delay: 1s;
+      }
+      .particle-3 {
+        left: 30%;
+        animation-delay: 2s;
+      }
+      .particle-4 {
+        left: 40%;
+        animation-delay: 3s;
+      }
+      .particle-5 {
+        left: 50%;
+        animation-delay: 4s;
+      }
+      .particle-6 {
+        left: 60%;
+        animation-delay: 5s;
+      }
+      .particle-7 {
+        left: 70%;
+        animation-delay: 0.5s;
+      }
+      .particle-8 {
+        left: 80%;
+        animation-delay: 1.5s;
+      }
+      .particle-9 {
+        left: 90%;
+        animation-delay: 2.5s;
+      }
+      .profile-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      .profile-upload {
+        margin-top: 12px;
+      }
+      .profile-upload-label {
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 20px;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: #fff;
+        font-size: 13px;
+        font-weight: bold;
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .profile-upload-label:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(102, 126, 234, 0.35);
+      }
+      .profile-upload-input {
+        display: none;
+      }
+      .connect-heading {
+        margin-top: 50px;
+      }
+      .declaration-text {
+        text-align: center;
+        margin-top: 30px;
+        font-style: italic;
+        color: #666;
+      }
+      .react-features {
+        margin-top: 40px;
+        padding: 24px;
+        border-radius: 16px;
+        border: 2px solid rgba(0, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.75);
+      }
+      .react-projects {
+        margin-top: 16px;
+      }
+      .react-project-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      .react-chip {
+        border: 1px solid rgba(102, 126, 234, 0.35);
+        background: #fff;
+        color: #2c3e50;
+        border-radius: 999px;
+        padding: 7px 12px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .react-chip.active {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: #fff;
+        border-color: transparent;
+      }
+      .react-project-highlight {
+        border: 2px solid rgba(0, 255, 255, 0.35);
+        border-radius: 14px;
+        padding: 14px;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 255, 255, 0.08),
+          rgba(102, 126, 234, 0.08)
+        );
+        margin-bottom: 14px;
+      }
+      .react-project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+      }
+      .react-project-card {
+        background: #fff;
+        border: 1px solid rgba(102, 126, 234, 0.2);
+        border-radius: 12px;
+        padding: 12px;
+      }
+      .react-project-card h4 {
+        margin: 0 0 8px;
+        color: #2c3e50;
+        font-size: 15px;
+      }
+      .react-project-card p {
+        margin: 0;
+        color: #5f6f81;
+        font-size: 13px;
+      }
+      .react-card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 14px;
+        margin-top: 14px;
+      }
+      .react-card {
+        background: #ffffff;
+        border: 1px solid rgba(102, 126, 234, 0.25);
+        border-radius: 12px;
+        padding: 14px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      }
+      .react-card-title {
+        margin: 0 0 8px;
+        color: #2c3e50;
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .react-input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid rgba(102, 126, 234, 0.35);
+        border-radius: 8px;
+        font-size: 14px;
+        margin-top: 8px;
+      }
+      .react-input:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+      }
+      .react-btn {
+        margin-top: 10px;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #fff;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        cursor: pointer;
+      }
+      .react-list {
+        margin: 10px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .react-list-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 8px 10px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        background: rgba(102, 126, 234, 0.08);
+      }
+      .react-pill {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(0, 255, 255, 0.15);
+        color: #1b4b57;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .react-muted {
+        color: #5f6f81;
+        font-size: 13px;
+      }
+      .lightbox.active {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .lightbox-content {
+        max-width: 90%;
+        max-height: 90%;
+        object-fit: contain;
+        border-radius: 10px;
+        box-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
+        animation: zoomIn 0.3s ease;
+      }
+      .lightbox-close {
+        position: absolute;
+        top: 30px;
+        right: 50px;
+        font-size: 50px;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10001;
+        background: rgba(0, 255, 255, 0.2);
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
+      .lightbox-close:hover {
+        color: #00ffff;
+        transform: rotate(90deg) scale(1.1);
+        background: rgba(0, 255, 255, 0.4);
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes zoomIn {
+        from {
+          transform: scale(0.5);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Menu -->
+    <nav>
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="ai-background">
+      <div class="neural-network">
+        <div class="node node-1"></div>
+        <div class="node node-2"></div>
+        <div class="node node-3"></div>
+        <div class="node node-4"></div>
+        <div class="connection connection-1"></div>
+        <div class="connection connection-2"></div>
+      </div>
+    </div>
+    <div class="floating-particles">
+      <div class="particle particle-1"></div>
+      <div class="particle particle-2"></div>
+      <div class="particle particle-3"></div>
+      <div class="particle particle-4"></div>
+      <div class="particle particle-5"></div>
+      <div class="particle particle-6"></div>
+      <div class="particle particle-7"></div>
+      <div class="particle particle-8"></div>
+      <div class="particle particle-9"></div>
+    </div>
+    <div class="container">
+      <!-- HOME SECTION -->
+      <section id="home">
+        <div class="profile-header">
+          <div class="profile-image">
+            <img
+              src="Dhinesha G.png"
+              alt="Profile Image"
+              id="profile-photo"
+              class="profile-photo"
+            />
+          </div>
+          <div class="profile-upload">
+            <label for="profile-upload-input" class="profile-upload-label"
+              >Upload Profile Image</label
+            >
+            <input
+              type="file"
+              id="profile-upload-input"
+              class="profile-upload-input"
+              accept="image/*"
+            />
+          </div>
+          <h1>Dhinesha G</h1>
+          <p>
+            <strong>Contact:</strong> 9942687393 |
+            <strong>Email:</strong> gnanaveldhinesha@gmail.com
+          </p>
+        </div>
+      </section>
+
+      <!-- ABOUT SECTION -->
+      <section id="about">
+        <h2>Summary</h2>
+        <p>
+          I am Dhinesha G, a Pre Final-year B.E. Artificial Intelligence and
+          Machine Learning (AIML) student with a strong passion for technology
+          and innovation. I am a responsible and hardworking individual, always
+          eager to learn and contribute. I thrive in collaborative environments
+          and enjoy working on team-based projects. I aim to apply my skills in
+          real-world applications and continuously grow as a tech professional.
+          I am committed to delivering quality work through dedication,
+          continuous learning, and teamwork. Currently working in our
+          Association (Aeva-Social Media Co-ordinator).
+        </p>
+
+        <h2>Education</h2>
+        <table>
+          <tr>
+            <th>Course</th>
+            <th>Institution</th>
+            <th>Year</th>
+            <th>Result</th>
+          </tr>
+          <tr>
+            <td>Higher Secondary Certificate</td>
+            <td>Government Girls Higher Secondary School</td>
+            <td>2022 - 2023</td>
+            <td>67%</td>
+          </tr>
+          <tr>
+            <td>B.E. CSE (AI & ML)</td>
+            <td>K.S. Rangasamy College of Technology</td>
+            <td>2023 - Present</td>
+            <td>CGPA: 8.50</td>
+          </tr>
+        </table>
+        <p>
+          <strong>Relevant Coursework:</strong> Data Structures and Algorithms,
+          Artificial Intelligence, Machine Learning, Web Development, Database
+          Management System, Graphic Designing, Design Thinking, Power BI, RPA
+        </p>
+
+        <h2>Projects</h2>
+        <div id="react-projects-root" class="react-projects"></div>
+
+        <h2>Internships</h2>
+        <ul>
+          <li>
+            <strong
+              >AICTE (EduSkills) - Google for Developers (AI & ML Virtual
+              Internship)</strong
+            ><br />
+            04/2025 - 06/2025 | Virtual Internship - Google AI/ML (Cohort 12) |
+            Grade: A<br />
+            • Gained foundational knowledge in AI/ML, Computer Vision, and
+            CNNs<br />
+            • Implemented basic ML models and hands-on labs on Google Cloud<br />
+            • Earned multiple skill badges through practical learning techniques
+          </li>
+        </ul>
+
+        <h2>Certifications</h2>
+        <ul>
+          <li>
+            Practical Cyber Security for Cyber Security Practitioners – IIT
+            Kanpur (NPTEL Online Certification - SWAYAM) | Jul 2025 – Oct 2025 |
+            12-Week Course | Silver
+          </li>
+          <li>
+            English for Competitive Exams – IIT Madras (NPTEL–SWAYAM) | Jan 2024
+            – Apr 2024
+          </li>
+          <li>
+            The Joy of Computing Using Python – IIT Madras (NPTEL–SWAYAM) | Jul
+            2024 – Oct 2024
+          </li>
+          <li>
+            MATLAB Certification – MathWorks | Completed 5 Courses | Apr 2025 –
+            May 2025
+          </li>
+          <li>
+            Robotic Process Automation using UiPath – ICT Academy (Skill-A-Thon)
+            | Mar 2024 – Apr 2024
+          </li>
+          <li>PepsiCo Sales Star Program – Internshala | Feb 2024</li>
+          <li>
+            Common Internship Test (Participation) – Internship Studio | Jun
+            2024
+          </li>
+        </ul>
+
+        <h2>Activities</h2>
+        <ul>
+          <li>
+            Enhances strategic thinking and quick decision-making through
+            gameplay
+          </li>
+          <li>
+            Exploring new technologies - Curious about AI and latest tools
+          </li>
+          <li>Practices coding regularly</li>
+          <li>Social Media Coordinator at Aeva Association</li>
+        </ul>
+
+        <h2>Project Gallery</h2>
+        <div class="gallery">
+          <div class="gallery-item">Screen Recorder<br />Application</div>
+          <div class="gallery-item">DDoS Prevention<br />Website</div>
+          <div class="gallery-item">AgrogaurdAi<br />Farmer Disease Agent</div>
+          <div class="gallery-item">Power BI<br />Dashboard</div>
+          <div class="gallery-item">UiPath<br />Automation</div>
+          <div class="gallery-item">E-commerce<br />Design</div>
+        </div>
+      </section>
+
+      <!-- SKILLS SECTION -->
+      <section id="skills">
+        <h2>Technical Skills</h2>
+        <ul>
+          <li>
+            <strong>Programming Languages:</strong> HTML, CSS, Java (Basics),
+            Python, C, SQL
+          </li>
+          <li>
+            <strong>Tools:</strong> GitHub, VS Code, AI Tools (ChatGPT,
+            Co-pilot, Amazon Q), UI Path, Antigravity
+          </li>
+          <li><strong>Languages:</strong> English, Tamil</li>
+        </ul>
+
+        <div class="react-features">
+          <h2>React Features</h2>
+          <div id="react-features-root"></div>
+        </div>
+      </section>
+
+      <!-- ACHIEVEMENTS SECTION -->
+      <section id="achievements">
+        <h2>Achievement Gallery</h2>
+        <div class="achievements-gallery">
+          <div class="achievement-card">
+            <div class="achievement-badge">A1</div>
+            <p class="achievement-title">NPTEL Silver Certification</p>
+            <p class="achievement-meta">
+              Practical Cyber Security - IIT Kanpur (SWAYAM)
+            </p>
+          </div>
+          <div class="achievement-card">
+            <div class="achievement-badge">A2</div>
+            <p class="achievement-title">Google AI/ML Internship</p>
+            <p class="achievement-meta">
+              AICTE EduSkills Virtual Internship, Cohort 12 (Grade A)
+            </p>
+          </div>
+          <div class="achievement-card">
+            <div class="achievement-badge">A3</div>
+            <p class="achievement-title">Project and Tool Certifications</p>
+            <p class="achievement-meta">
+              Power BI, UiPath, and MATLAB coursework milestones
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Lightbox Modal -->
+      <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" />
+      </div>
+
+      <!-- CONTACT SECTION -->
+      <section id="contact">
+        <h2>Get in Touch</h2>
+
+        <div class="contact-form">
+          <h3>Send Me a Message</h3>
+          <form action="#" method="POST" onsubmit="return handleSubmit(event);">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder="What's this about?"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Write your message here..."
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+        </div>
+
+        <h2 class="connect-heading">Connect With Me</h2>
+        <div class="social-links">
+          <a
+            href="https://www.linkedin.com/in/dhinesha-g-673601292"
+            target="_blank"
+            rel="noopener"
+            >LinkedIn</a
+          >
+          <a href="https://github.com/Dhinesha" target="_blank" rel="noopener"
+            >GitHub</a
+          >
+          <a
+            href="https://www.salesforce.com/trailblazer/qe74964dp11h9n3df"
+            target="_blank"
+            rel="noopener"
+            >Salesforce</a
+          >
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // Form submission handler
+      function handleSubmit(event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const subject = document.getElementById("subject").value;
+        const message = document.getElementById("message").value;
+
+        // Show success message
+        alert(
+          "Message sent successfully! ✓\n\nThank you " +
+            name +
+            ", your message has been sent successfully. I'll get back to you soon!",
+        );
+
+        // Reset form
+        event.target.reset();
+
+        return false;
+      }
+      // Smooth scroll and active navigation
+      document.addEventListener("DOMContentLoaded", function () {
+        const navLinks = document.querySelectorAll("nav a");
+
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Remove active class from all links
+            navLinks.forEach((l) => l.classList.remove("active"));
+
+            // Add active class to clicked link
+            this.classList.add("active");
+
+            // Smooth scroll to section
+            const targetId = this.getAttribute("href");
+            const targetSection = document.querySelector(targetId);
+
+            if (targetSection) {
+              targetSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+          });
+        });
+
+        // Update active link on scroll
+        window.addEventListener("scroll", function () {
+          let current = "";
+          const sections = document.querySelectorAll("section");
+
+          sections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= sectionTop - 100) {
+              current = section.getAttribute("id");
+            }
+          });
+
+          navLinks.forEach((link) => {
+            link.classList.remove("active");
+            if (link.getAttribute("href") === "#" + current) {
+              link.classList.add("active");
+            }
+          });
+        });
+
+        // Lightbox functionality
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+        const lightboxClose = document.querySelector(".lightbox-close");
+        const galleryImages = document.querySelectorAll(".gallery-image");
+        const profilePhoto = document.getElementById("profile-photo");
+        const profileUploadInput = document.getElementById(
+          "profile-upload-input",
+        );
+
+        if (profilePhoto && profileUploadInput) {
+          profileUploadInput.addEventListener("change", function (event) {
+            const selectedFile = event.target.files && event.target.files[0];
+            if (!selectedFile) {
+              return;
+            }
+
+            const imageReader = new FileReader();
+            imageReader.onload = function (loadEvent) {
+              profilePhoto.src = loadEvent.target.result;
+            };
+            imageReader.readAsDataURL(selectedFile);
+          });
+        }
+
+        // Open lightbox on image click
+        galleryImages.forEach((img) => {
+          img.addEventListener("click", function () {
+            lightbox.classList.add("active");
+            lightboxImg.src = this.src;
+          });
+        });
+
+        // Close lightbox on close button click
+        lightboxClose.addEventListener("click", function () {
+          lightbox.classList.remove("active");
+        });
+
+        // Close lightbox on background click
+        lightbox.addEventListener("click", function (e) {
+          if (e.target === lightbox) {
+            lightbox.classList.remove("active");
+          }
+        });
+
+        // Close lightbox on ESC key
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && lightbox.classList.contains("active")) {
+            lightbox.classList.remove("active");
+          }
+        });
+      });
+    </script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      const { useMemo, useState } = React;
+
+      function ReactFeaturesApp() {
+        const baseSkills = [
+          "HTML",
+          "CSS",
+          "Java",
+          "Python",
+          "SQL",
+          "Power BI",
+          "UiPath",
+          "GitHub",
+        ];
+
+        const [query, setQuery] = useState("");
+        const [tasks, setTasks] = useState([
+          { id: 1, text: "Complete AI mini project", done: false },
+          { id: 2, text: "Practice DSA 1 hour", done: true },
+        ]);
+        const [newTask, setNewTask] = useState("");
+
+        const filteredSkills = useMemo(() => {
+          const keyword = query.trim().toLowerCase();
+          if (!keyword) {
+            return baseSkills;
+          }
+          return baseSkills.filter((skill) =>
+            skill.toLowerCase().includes(keyword),
+          );
+        }, [query]);
+
+        const completedCount = tasks.filter((task) => task.done).length;
+
+        const addTask = () => {
+          const taskText = newTask.trim();
+          if (!taskText) {
+            return;
+          }
+          setTasks((prev) => [
+            ...prev,
+            { id: Date.now(), text: taskText, done: false },
+          ]);
+          setNewTask("");
+        };
+
+        const toggleTask = (id) => {
+          setTasks((prev) =>
+            prev.map((task) =>
+              task.id === id ? { ...task, done: !task.done } : task,
+            ),
+          );
+        };
+
+        return (
+          <div className="react-card-grid">
+            <div className="react-card">
+              <h3 className="react-card-title">Skill Search</h3>
+              <p className="react-muted">Filter your skills instantly.</p>
+              <input
+                className="react-input"
+                type="text"
+                placeholder="Search a skill..."
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+              />
+              <ul className="react-list">
+                {filteredSkills.map((skill) => (
+                  <li className="react-list-item" key={skill}>
+                    <span>{skill}</span>
+                    <span className="react-pill">Matched</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="react-card">
+              <h3 className="react-card-title">Progress Tracker</h3>
+              <p className="react-muted">
+                {completedCount} / {tasks.length} tasks completed
+              </p>
+              <input
+                className="react-input"
+                type="text"
+                placeholder="Add a learning task"
+                value={newTask}
+                onChange={(event) => setNewTask(event.target.value)}
+              />
+              <button className="react-btn" type="button" onClick={addTask}>
+                Add Task
+              </button>
+              <ul className="react-list">
+                {tasks.map((task) => (
+                  <li className="react-list-item" key={task.id}>
+                    <span>{task.text}</span>
+                    <input
+                      type="checkbox"
+                      checked={task.done}
+                      onChange={() => toggleTask(task.id)}
+                      aria-label={"Toggle task " + task.text}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        );
+      }
+
+      function ReactProjectsApp() {
+        const projects = [
+          {
+            id: 1,
+            title: "Screen Recorder Application",
+            category: "web",
+            summary:
+              "Featured project that captures on-screen activity with simple controls.",
+            stack: "HTML, CSS, JavaScript",
+          },
+          {
+            id: 2,
+            title: "DDoS Attack Prevention Website (OpenWeaver)",
+            category: "web",
+            summary:
+              "Web security awareness and prevention flow for traffic attack scenarios.",
+            stack: "Frontend + Security Concepts",
+          },
+          {
+            id: 3,
+            title: "AgrogaurdAi (Farmer deases predict Agent)",
+            category: "ai",
+            summary:
+              "AI-driven farming support to assist early disease prediction workflows.",
+            stack: "AI/ML, Data",
+          },
+          {
+            id: 4,
+            title: "Energy Consumption Dashboard",
+            category: "data",
+            summary:
+              "Interactive Power BI dashboard for energy trend analysis.",
+            stack: "Power BI",
+          },
+          {
+            id: 5,
+            title: "Background Remover Automation",
+            category: "automation",
+            summary:
+              "UiPath automation flow for repetitive background removal tasks.",
+            stack: "UiPath RPA",
+          },
+          {
+            id: 6,
+            title: "E-commerce Website Design",
+            category: "web",
+            summary: "Modern storefront wireframes and flows built in Figma.",
+            stack: "Figma UX/UI",
+          },
+        ];
+
+        const [filter, setFilter] = useState("all");
+        const categories = ["all", "web", "ai", "data", "automation"];
+
+        const visibleProjects =
+          filter === "all"
+            ? projects
+            : projects.filter((project) => project.category === filter);
+
+        const featuredProject = projects[0];
+
+        return (
+          <div>
+            <div className="react-project-highlight">
+              <h3 className="react-card-title">
+                Featured: {featuredProject.title}
+              </h3>
+              <p className="react-muted">{featuredProject.summary}</p>
+              <p className="react-muted">Stack: {featuredProject.stack}</p>
+            </div>
+
+            <div className="react-project-toolbar">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  type="button"
+                  className={
+                    "react-chip" + (filter === category ? " active" : "")
+                  }
+                  onClick={() => setFilter(category)}
+                >
+                  {category.toUpperCase()}
+                </button>
+              ))}
+            </div>
+
+            <div className="react-project-grid">
+              {visibleProjects.map((project) => (
+                <div className="react-project-card" key={project.id}>
+                  <h4>{project.title}</h4>
+                  <p>{project.summary}</p>
+                  <p className="react-muted">{project.stack}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      const reactRootElement = document.getElementById("react-features-root");
+      if (reactRootElement) {
+        const reactRoot = ReactDOM.createRoot(reactRootElement);
+        reactRoot.render(<ReactFeaturesApp />);
+      }
+
+      const reactProjectsRootElement = document.getElementById(
+        "react-projects-root",
+      );
+      if (reactProjectsRootElement) {
+        const reactProjectsRoot = ReactDOM.createRoot(reactProjectsRootElement);
+        reactProjectsRoot.render(<ReactProjectsApp />);
+      }
+    </script>
+  </body>
+</html>
