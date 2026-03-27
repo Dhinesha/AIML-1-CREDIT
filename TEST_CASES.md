@@ -3,6 +3,7 @@
 ## 📋 Test Coverage Overview
 
 This document contains comprehensive test cases for:
+
 - UI Navigation & Layout
 - React Components (Skill Search, Projects, Progress Tracker)
 - Form Submission & Validation
@@ -17,6 +18,7 @@ This document contains comprehensive test cases for:
 ## 1️⃣ Navigation & Menu Tests
 
 ### TC-NAV-001: Navigation Menu Display
+
 **Purpose**: Verify navigation menu is visible and properly formatted
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -26,6 +28,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-NAV-002: Smooth Scroll Navigation
+
 **Purpose**: Test that clicking navigation links smoothly scrolls to sections
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -36,6 +39,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-NAV-003: Active Link Updates on Scroll
+
 **Purpose**: Verify active navigation link updates when manually scrolling
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -45,6 +49,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-NAV-004: ESC Key Closes Lightbox
+
 **Purpose**: Test ESC key functionality for closing modal
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -58,6 +63,7 @@ This document contains comprehensive test cases for:
 ## 2️⃣ Profile & Image Upload Tests
 
 ### TC-IMG-001: Profile Image Display
+
 **Purpose**: Verify profile image loads and displays correctly
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -67,6 +73,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-IMG-002: Upload New Profile Image
+
 **Purpose**: Test profile image upload functionality
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -77,10 +84,11 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-IMG-003: Invalid File Upload
+
 **Purpose**: Test file upload validation
 | Step | Action | Expected Result |
 |------|--------|-----------------|
-| 1 | Try uploading non-image file (.txt/.pdf) | File picker only accepts image/* types |
+| 1 | Try uploading non-image file (.txt/.pdf) | File picker only accepts image/\* types |
 | 2 | Try uploading corrupted image | File accepted but displays placeholder if corrupt |
 | **Status** | ✅ PASS/❌ FAIL | |
 
@@ -89,6 +97,7 @@ This document contains comprehensive test cases for:
 ## 3️⃣ React Component Tests
 
 ### TC-REACT-SKL-001: Skill Search Functionality
+
 **Purpose**: Test skill filtering in real-time
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -100,6 +109,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-REACT-SKL-002: Skill Search Case Insensitivity
+
 **Purpose**: Verify search works regardless of case
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -109,6 +119,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-REACT-PRJ-001: Project Filtering by Category
+
 **Purpose**: Test project filter functionality
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -121,6 +132,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-REACT-PRJ-002: Featured Project Display
+
 **Purpose**: Verify featured project section
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -130,6 +142,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-REACT-TRK-001: Progress Tracker - Add Task
+
 **Purpose**: Test adding new learning tasks
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -140,6 +153,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-REACT-TRK-002: Progress Tracker - Mark Complete
+
 **Purpose**: Test task completion toggle
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -150,12 +164,13 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-REACT-TRK-003: Progress Tracker - Empty Input Validation
+
 **Purpose**: Test validation when adding tasks
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Leave input field empty | Input shows placeholder text |
 | 2 | Click "Add Task" with empty input | No task added, no error shown (silent validation) |
-| 3 | Type only spaces "   " | Clicking Add Task does nothing (trimmed validation) |
+| 3 | Type only spaces " " | Clicking Add Task does nothing (trimmed validation) |
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ---
@@ -163,6 +178,7 @@ This document contains comprehensive test cases for:
 ## 4️⃣ Form Submission Tests
 
 ### TC-FORM-001: Contact Form - Valid Submission
+
 **Purpose**: Test successful form submission
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -176,6 +192,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-FORM-002: Contact Form - Required Field Validation
+
 **Purpose**: Test HTML5 form validation
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -186,6 +203,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-FORM-003: Email Validation
+
 **Purpose**: Test email format validation
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -195,6 +213,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-FORM-004: Form Success Message Content
+
 **Purpose**: Verify success message displays correct information
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -208,6 +227,7 @@ This document contains comprehensive test cases for:
 ## 5️⃣ Lightbox Modal Tests
 
 ### TC-LBX-001: Lightbox Modal Open
+
 **Purpose**: Test lightbox opening on project click
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -217,6 +237,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-LBX-002: Lightbox Close - Button Click
+
 **Purpose**: Test closing lightbox via close button
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -226,6 +247,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-LBX-003: Lightbox Close - Background Click
+
 **Purpose**: Test closing lightbox by clicking outside content
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -235,6 +257,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-LBX-004: Lightbox Close - ESC Key
+
 **Purpose**: Test closing lightbox via keyboard
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -248,6 +271,7 @@ This document contains comprehensive test cases for:
 ## 6️⃣ Layout & Design Tests
 
 ### TC-LAYOUT-001: Responsive Mobile View (375px)
+
 **Purpose**: Test layout on small mobile devices
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -259,6 +283,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-LAYOUT-002: Responsive Tablet View (768px)
+
 **Purpose**: Test layout on tablet devices
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -269,6 +294,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-LAYOUT-003: Responsive Desktop View (1920px+)
+
 **Purpose**: Test layout on large desktop screens
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -278,6 +304,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-LAYOUT-004: Animation Presence
+
 **Purpose**: Verify animations display on page load
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -292,6 +319,7 @@ This document contains comprehensive test cases for:
 ## 7️⃣ Content & Data Tests
 
 ### TC-CNT-001: Profile Information Display
+
 **Purpose**: Verify personal information is correctly displayed
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -301,6 +329,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-CNT-002: Education Table
+
 **Purpose**: Verify education information displays correctly
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -311,6 +340,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-CNT-003: Projects List Content
+
 **Purpose**: Verify all projects display correctly
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -320,6 +350,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-CNT-004: Skills Display
+
 **Purpose**: Verify technical skills section
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -329,6 +360,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-CNT-005: Achievements Display
+
 **Purpose**: Verify achievement cards
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -340,6 +372,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-CNT-006: Social Links
+
 **Purpose**: Verify social media links are functional
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -355,6 +388,7 @@ This document contains comprehensive test cases for:
 ## 8️⃣ Performance Tests
 
 ### TC-PERF-001: Page Load Time
+
 **Purpose**: Verify page loads within acceptable time
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -365,6 +399,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-PERF-002: React Component Render Performance
+
 **Purpose**: Test React components render efficiently
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -375,6 +410,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-PERF-003: Animation Smoothness
+
 **Purpose**: Verify animations run at 60fps
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -388,6 +424,7 @@ This document contains comprehensive test cases for:
 ## 9️⃣ Accessibility Tests
 
 ### TC-A11Y-001: Alt Text for Images
+
 **Purpose**: Verify all images have alt text
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -397,6 +434,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-A11Y-002: Keyboard Navigation
+
 **Purpose**: Test full keyboard navigation without mouse
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -407,6 +445,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-A11Y-003: Form Label Association
+
 **Purpose**: Verify form labels properly associated with inputs
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -416,6 +455,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-A11Y-004: Color Contrast
+
 **Purpose**: Verify text has sufficient contrast
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -425,6 +465,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-A11Y-005: Form Input Labels
+
 **Purpose**: Test form accessibility for screen readers
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -438,6 +479,7 @@ This document contains comprehensive test cases for:
 ## 🔟 Browser Compatibility Tests
 
 ### TC-BROWSER-001: Chrome Latest
+
 **Purpose**: Test on Chrome browser
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -447,6 +489,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-BROWSER-002: Firefox Latest
+
 **Purpose**: Test on Firefox browser
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -456,6 +499,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-BROWSER-003: Safari Latest
+
 **Purpose**: Test on Safari browser (includes iOS)
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -465,6 +509,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-BROWSER-004: Edge Latest
+
 **Purpose**: Test on Microsoft Edge browser
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -478,6 +523,7 @@ This document contains comprehensive test cases for:
 ## 1️⃣1️⃣ Edge Cases & Error Handling
 
 ### TC-EDGE-001: Rapid Navigation Clicks
+
 **Purpose**: Test navigation with rapid clicks
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -486,6 +532,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-EDGE-002: Form Submission Spam
+
 **Purpose**: Test form with rapid submissions
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -494,6 +541,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-EDGE-003: Large File Image Upload
+
 **Purpose**: Test upload with oversized image
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -502,6 +550,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-EDGE-004: Special Characters in Form
+
 **Purpose**: Test form with special characters
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -511,6 +560,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-EDGE-005: Network Offline - Static Content
+
 **Purpose**: Test site with no internet connection
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -525,6 +575,7 @@ This document contains comprehensive test cases for:
 ## 1️⃣2️⃣ Integration Tests
 
 ### TC-INT-001: Full User Journey - Browse Portfolio
+
 **Purpose**: Complete user flow: visit, explore, contact
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -539,6 +590,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-INT-002: Full User Journey - Interact with React
+
 **Purpose**: Test React components in real user workflow
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -552,6 +604,7 @@ This document contains comprehensive test cases for:
 | **Status** | ✅ PASS/❌ FAIL | |
 
 ### TC-INT-003: File Separation Integration
+
 **Purpose**: Test all separated files work together
 | Step | Action | Expected Result |
 |------|--------|-----------------|
@@ -567,27 +620,29 @@ This document contains comprehensive test cases for:
 ## Test Execution Summary
 
 ### Test Metrics Template
-| Category | Total Tests | Passed | Failed | Pass % |
-|----------|------------|--------|--------|---------|
-| Navigation | 4 | | | |
-| Profile & Images | 3 | | | |
-| React Components | 11 | | | |
-| Form Submission | 4 | | | |
-| Lightbox Modal | 4 | | | |
-| Layout & Design | 4 | | | |
-| Content & Data | 6 | | | |
-| Performance | 3 | | | |
-| Accessibility | 5 | | | |
-| Browser Compatibility | 4 | | | |
-| Edge Cases | 5 | | | |
-| Integration Tests | 3 | | | |
-| **TOTAL** | **56** | | | |
+
+| Category              | Total Tests | Passed | Failed | Pass % |
+| --------------------- | ----------- | ------ | ------ | ------ |
+| Navigation            | 4           |        |        |        |
+| Profile & Images      | 3           |        |        |        |
+| React Components      | 11          |        |        |        |
+| Form Submission       | 4           |        |        |        |
+| Lightbox Modal        | 4           |        |        |        |
+| Layout & Design       | 4           |        |        |        |
+| Content & Data        | 6           |        |        |        |
+| Performance           | 3           |        |        |        |
+| Accessibility         | 5           |        |        |        |
+| Browser Compatibility | 4           |        |        |        |
+| Edge Cases            | 5           |        |        |        |
+| Integration Tests     | 3           |        |        |        |
+| **TOTAL**             | **56**      |        |        |        |
 
 ---
 
 ## Test Execution Notes
 
 ### Recommended Testing Environment
+
 - **Browser**: Chrome Dev Tools + Firefox DevTools for cross-browser
 - **Screen Reader**: NVDA (Windows) or VoiceOver (Mac)
 - **Viewport Tester**: Chrome DevTools or Responsive Design Mode
@@ -595,6 +650,7 @@ This document contains comprehensive test cases for:
 - **Connectivity**: Network throttling in DevTools (3G, 4G, Offline)
 
 ### Prerequisites for Testing
+
 - ✅ All files (index.html, styles.css, app.js, react-app.js) present in directory
 - ✅ Profile image (Dhinesha G.png) in same directory
 - ✅ Modern browser supporting ES6+
@@ -602,13 +658,16 @@ This document contains comprehensive test cases for:
 - ✅ Internet connection (for CDN React libraries)
 
 ### Known Limitations
+
 - React components require internet (CDN-based)
 - Image upload persists in browser session (not server-side)
 - Contact form doesn't send actual emails (alert-based)
 - Lightbox doesn't display images (gallery-item divs are text-only)
 
 ### Regression Testing
+
 Run this complete test suite after any changes to:
+
 - HTML structure
 - CSS styling
 - JavaScript logic
@@ -618,11 +677,11 @@ Run this complete test suite after any changes to:
 
 ## Sign-Off
 
-| Role | Name | Date | Status |
-|------|------|------|--------|
-| Tester | | | |
-| QA Lead | | | |
-| Developer | | | |
+| Role      | Name | Date | Status |
+| --------- | ---- | ---- | ------ |
+| Tester    |      |      |        |
+| QA Lead   |      |      |        |
+| Developer |      |      |        |
 
 ---
 
